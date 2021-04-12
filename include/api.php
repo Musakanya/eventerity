@@ -15,15 +15,12 @@
 	if (isset($_POST['login-btn'])) {
 		login();
 	}
-
-
-
-
-
-	// call the create staff function if  button is clicked
-	if (isset($_POST['create_sta_ac'])) {
-		create_user_sta();
+	// call the create event function if create button is clicked
+	if (isset($_POST['create_eve'])) {
+		create_eve();
 	}
+
+
 	
 	// call the upload function if upload button clicked
 	if (isset($_POST['upload_btn'])) {
@@ -181,7 +178,7 @@
 					}
 					elseif ($ut == 'US'){
 						$_SESSION['US'] = $u_email;
-						header('location: user.php');
+						header('location: index.php');
 				}
 			}
                 else {
@@ -192,6 +189,46 @@
 		}
 	}
 }
+
+	function create_eve(){
+		global $connection;
+		if (isset($_SESSION['US'])){
+			$email = $_SESSION['US'];
+
+			$ename = mysqli_real_escape_string($connection, $_POST['ename']);
+			$ptype = mysqli_real_escape_string($connection, $_POST['ptype']);
+			$eprice = mysqli_real_escape_string($connection, $_POST['eprice']);
+			$edate = mysqli_real_escape_string($connection, $_POST['edate']); 
+			$etime = mysqli_real_escape_string($connection, $_POST['etime']);
+			$etype = mysqli_real_escape_string($connection, $_POST['etype']);
+			$eve_desc = mysqli_real_escape_string($connection, $_POST['eve_desc']);
+			$saddress = mysqli_real_escape_string($connection, $_POST['saddress']);
+			$vcity = mysqli_real_escape_string($connection, $_POST['vcity']);
+			$pcode = mysqli_real_escape_string($connection, $_POST['pcode']);
+			$vcountry = mysqli_real_escape_string($connection, $_POST['vcountry']);
+			$vcapacity = mysqli_real_escape_string($connection, $_POST['vcapacity']);
+			
+			$cret_eve = "INSERT INTO events (event_name, event_date, 
+			event_time, street_address, city, post_code, country, price, event_description, 
+			tickets_available, event_owner, event_type, participation_type)
+			VALUES ('$ename', '$edate', '$etime', '$saddress', '$vcity', '$pcode', '$vcountry', 
+			'$eprice', '$eve_desc', '$vcapacity', '$email', '$etype', '$ptype')";
+
+			$res = mysqli_query($connection, $cret_eve);
+
+			// die(print_r($cret_eve));
+
+
+			if ($res > 0){
+				echo '<script>alert("Event Created")</script>';
+			}else{
+				echo '<script>alert("Creation Failed")</script>';
+			}
+
+		}else{
+			echo '<script>alert("Something went wrong")</script>';
+		}
+	}
      
     //Upload Articles and picture
 	function uploaddp(){

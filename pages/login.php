@@ -9,7 +9,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/signin.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	  <script src="https://kit.fontawesome.com/a81368914c.js"></script>
 
   </head>
   <body>
