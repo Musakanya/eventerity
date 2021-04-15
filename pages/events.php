@@ -47,11 +47,17 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link "  href="../index.php">
+      <ul class="nav flex-column">
+      <li class="nav-item">
+            <a class="nav-link " href="../index.php">
               <span data-feather="home"></span>
               Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="order_history.php">
+              <span data-feather="home"></span>
+              Oder History
             </a>
           </li>
           <li class="nav-item">
@@ -61,33 +67,21 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" href="events.php">
+              <span data-feather="events"></span>
+              Events
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="create_event.php">
               <span data-feather="create-event"></span>
               Create Event
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="events.php">
-              <span data-feather="events"></span>
-              Events
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="customers.php">
+            <a class="nav-link" aria-current="page" href="customers.php">
               <span data-feather="users"></span>
               Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
             </a>
           </li>
         </ul>
@@ -96,32 +90,23 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">Events</h1>
       </div>
-
-      <h2>Events</h2>
-                        <?php 
-                        $em = $_SESSION['US'];
-                        $sql = "SELECT * FROM events WHERE event_owner='$em'";
-                        $result = mysqli_query($connection, $sql);
-                    
-                        if ($result->num_rows > 0){
-
-                        
-                        while($row = $result->fetch_assoc()) {?>
-                        <div class="table-responsive">
-                          <table class="table table-striped table-sm">
-                          <thead>
-                          <tr>
-                            <th>Name</th>
+      <table class="table table-striped table-bordered table-hover">
+                     <thead>
+                     <th>Name</th>
                             <th>Description</th>
                             <th>Date/Time</th>
                             <th>Tickets Left</th>
                             <th>Action</th>
-                          </tr>
-                        </thead>
-                          <tbody>
-                            <tr>
+                      </thead>
+                         <?php 
+                        $em = $_SESSION['US'];
+                        $sql = "SELECT * FROM events WHERE event_owner='$em'";
+                        $result = mysqli_query($connection, $sql);
+                         while($row = $result->fetch_assoc()) {?>       
+                      <tbody>
+                      <tr>
                             <td><?php echo $row['event_name']; ?></td>
                             <td><?php echo $row['event_description']; ?></td>
                             <td><?php echo $row['event_date']; ?>
@@ -132,15 +117,14 @@
                             <form action="events.php" method="POST">
                             <td><button title="Edit Event"  name="ed_eve" value="<?php echo $row['id']; ?>">Edit</button>
                             <br><br>
-                            <button title="Delete Event" name="del_eve" value="<?php echo $row['id']; ?>" onclick="return checkDel()">Del</button></td>
+                            <button title="Delete Event" name="del_eve" value="<?php echo $row['id']; ?>" onclick="return checkDel()">Del</button>
+                            </td>
                             </tr>
                             </form>
-                          </tbody>
-                          </table>
-                          </div>
-                                <?php }}else{
-                                  echo "You havent created any events";
-                                } ?>
+                         </tr>
+                         <?php }?>
+                      </tbody>
+                </table>
     </main>
   </div>
 </div>

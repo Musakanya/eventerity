@@ -33,41 +33,41 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">
+      <ul class="nav flex-column">
+      <li class="nav-item">
+            <a class="nav-link " href="../index.php">
               <span data-feather="home"></span>
-              Dashboard
+              Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="profile.php" >
+            <a class="nav-link " href="order_history.php">
+              <span data-feather="home"></span>
+              Oder History
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="profile.php" >
               <span data-feather="profile"></span>
               Profile
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              Products
+            <a class="nav-link" href="events.php">
+              <span data-feather="events"></span>
+              Events
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="create_event.php">
+              <span data-feather="create-event"></span>
+              Create Event
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="customers.php">
               <span data-feather="users"></span>
               Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
             </a>
           </li>
         </ul>

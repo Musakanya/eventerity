@@ -241,11 +241,16 @@
 			$email = $_SESSION['US'];
 			$eve_id = $_POST['eve_id'];
 
+
 			$sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
+			$qry = "INSERT INTO order_history (event_id, order_date, user) VALUES('$eve_id', CURDATE(), '$email')";
 
 			$res = mysqli_query($connection, $sql);
+			$res2 = mysqli_query($connection, $qry) ;
+			
 
-			if ($res > 0){
+			if ($res > 0 and $res2 > 0){
+				
 				echo '<script>alert("Thank you for your purchase")</script>';
 				echo "<script>window.location='../index.php'</script>";
 			}else {

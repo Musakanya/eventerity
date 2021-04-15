@@ -14,11 +14,11 @@
   </head>
   <body class="bg-light">
     <?php 
-    $eve_id = $_POST['con_id'];           
+    $eve_id = $_POST['eve_id'];           
     //Check for event name, description, price
-   $sql = "SELECT id, event_name, event_description, price FROM events WHERE 
-   id='$eve_id' " ;
-   $result = $connection->query($sql);   
+      $sql = "SELECT id, event_name, event_description, price FROM events WHERE 
+      id='$eve_id' " ;
+      $result = $connection->query($sql);   
  
    if ($result->num_rows > 0) {
    // output data of each row
@@ -65,13 +65,16 @@
         <form class="needs-validation" action="checkout.php" method="POST" novalidate>
           <div class="my-3">
             <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" required>
               <label class="form-check-label" for="credit">Credit card</label>
             </div>
             <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" >
               <label class="form-check-label" for="debit">Debit card</label>
             </div>
+            <div class="invalid-feedback">
+               Please choose a payment type
+              </div>
           </div>
 
           <div class="row gy-3">

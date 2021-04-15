@@ -114,7 +114,7 @@
                   $eve_type = $row['event_type'];
                   $eve_ptype = $row['participation_type'];
                   $eve_atickets = $row['tickets_available'];
-                  $con_id = $row['id'];
+                  $eve_id = $row['id'];
 
                   echo "<div class='col-lg-4'>
                   <div class='card mb-5 mb-lg-0'>
@@ -137,7 +137,7 @@
                       <hr>
                       <div class='text-center'>
                       <form action='checkout.php' method='POST'>
-                          <input type='hidden' name='con_id'  value='$con_id'>
+                          <input type='hidden' name='eve_id'  value='$eve_id'>
                           <button type='submit' class='btn' name='buy_eve'>Buy Now</button>
                           </form>
                       </div>

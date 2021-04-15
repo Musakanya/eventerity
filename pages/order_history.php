@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
-    <title>Customers</title>
+    <title>Order History</title>
 
     
 
@@ -42,7 +42,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="order_history.php">
+            <a class="nav-link active" href="order_history.php">
               <span data-feather="home"></span>
               Oder History
             </a>
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="customers.php">
+            <a class="nav-link" aria-current="page" href="customers.php">
               <span data-feather="users"></span>
               Customers
             </a>
@@ -77,92 +77,75 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Customers</h1>
+        <h1 class="h2">Order History</h1>
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <!-- <h3>Choose Event </h3> -->
-        <table class="table table-striped table-bordered table-hover">
-                     <thead>
-                     <th>Event Name</th>
-                     <th>Customers</th>
-                      </thead>
-                         <?php 
-                         $em = $_SESSION['US'];
-                         $sql = "SELECT * FROM events WHERE event_owner='$em'";
-                         $result = mysqli_query($connection, $sql);
-                         while($rw = $result->fetch_assoc()) {?>       
-                      <tbody>
-                         <tr>
-                         <td><?php echo $rw['event_name']; ?></td>
-                         <form action='customers.php' method='POST'>
-                            <input type="hidden" name="eve_id"  value="<?php echo $rw['id'];?>">
-                            <td><button title='View Customers'  type='submit' name='view_cus'>View</button></td>
-                         </form>
-                         </tr>
-                         <?php }?>
-                      </tbody>
-                </table>
-
-        <!-- <form method="POST" action="customers.php">
-        <select name="eve_type" required>
-            <option value="" disabled selected>Choose Event Type</option>
-            <option value="conference">Conference</option>
-            <option value="festival">Festival</option>
-            <option value="seminar">Seminar</option>
-            <option value="speaker_session">Speaker Session</option>
-            <option value="workshop">Workshop</option>
-          </select>
-          <button type="submit">Select</button>
-        </form> -->
-        </div>
-        
-
         <?php 
 
-        if (isset($_POST['view_cus'])){
+        if (isset($_SESSION['US'])){
           $email = $_SESSION['US'];
-          $eve_id = $_POST['eve_id'];
-
-          
-
-
-
           //Check for events assigned to email
-          $chk_eve = "SELECT * FROM events WHERE event_owner = '$email' AND id = '$eve_id'";
-          $res = mysqli_query($connection, $chk_eve);
+          $chk_eve = "SELECT * FROM order_history WHERE user = '$email'";
+          $re = mysqli_query($connection, $chk_eve);
 
-          if ($res->num_rows > 0){
-            $row = mysqli_fetch_array($res);
-            $eve_name = $row['event_name'];
-            $id = $row['id'];
-          
+          if ($re->num_rows > 0){
+              $res = mysqli_fetch_array($re);
 
-            //Check for user on specific event
-            $chk = "SELECT * FROM user_on_event WHERE event_id = '$id'";
-            $ret = mysqli_query($connection, $chk);
+              $ord_num = $res['id'];
+              $eid = $res['event_id'];
+              $odate = $res['order_date'];
 
-            while ($rw = mysqli_fetch_array($ret)){
-              $eve_id = $rw['event_id'];
-              $usr_mail = $rw['email'];
+              $chk = "SELECT * FROM events WHERE id = '$eid'";
+              $ret = mysqli_query($connection, $chk);
 
-              $sql = "SELECT * FROM events WHERE id = '$eve_id'";
-              $result = mysqli_query($connection, $sql);
-              $ret_row = mysqli_fetch_array($result);
+            while ($row = mysqli_fetch_array($ret)){
+                $eve_name = $row['event_name'];
+                $eve_price = $row['price'];
+                $eve_date = $row['event_date'];
+                $eve_time = $row['event_time'];
+                $eve_address = $row['street_address'];
+                $eve_city = $row['city'];
+                $eve_post = $row['post_code'];
+                $eve_country = $row['country'];
+                $eve_type = $row['event_type'];
+                $eve_ptype = $row['participation_type'];
 
-              $eve_name = $ret_row['event_name'];
 
-              echo "<h2>Customers on: $eve_name</h2>
+              echo "
             <div class='table-responsive'>
               <table class='table table-striped table-sm'>
                 <thead>
                   <tr>
-                    <th>Customer Email</th>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Event Name</th>
+                    <th>Price</th>
+                    <th>Event Date</th>
+                    <th>Event Time</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Post Code</th>
+                    <th>Country</th>
+                    <th>Type</th>
+                    <th>Participation Type</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>$usr_mail</td>
+                    <td>$ord_num</td>
+                    <td>$odate</td>
+                    <td>$eve_name</td>
+                    <td>K$eve_price</td>
+                    <td>$eve_date</td>
+                    <td>$eve_time</td>
+                    <td>$eve_address</td>
+                    <td>$eve_city</td>
+                    <td>$eve_post</td>
+                    <td>$eve_country</td>
+                    <td>$eve_type</td>
+                    <td>$eve_ptype</td>
                   </tr>
                 </tbody>
               </table>
@@ -170,13 +153,18 @@
               
             }
             
+        }else{
+            echo "You haven't bought anything yet";
         }
           
           
         }
         
         ?>
-        </div>
+      </div>
+
+        
+
       
     </main>
   </div>

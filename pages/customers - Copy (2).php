@@ -34,17 +34,11 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
-      <ul class="nav flex-column">
-      <li class="nav-item">
-            <a class="nav-link " href="../index.php">
-              <span data-feather="home"></span>
-              Home
-            </a>
-          </li>
+        <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link " href="order_history.php">
+            <a class="nav-link " href="dashboard.php">
               <span data-feather="home"></span>
-              Oder History
+              Dashboard
             </a>
           </li>
           <li class="nav-item">
@@ -81,28 +75,39 @@
       </div>
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <!-- <h3>Choose Event </h3> -->
-        <table class="table table-striped table-bordered table-hover">
-                     <thead>
-                     <th>Event Name</th>
-                     <th>Customers</th>
-                      </thead>
-                         <?php 
-                         $em = $_SESSION['US'];
-                         $sql = "SELECT * FROM events WHERE event_owner='$em'";
-                         $result = mysqli_query($connection, $sql);
-                         while($rw = $result->fetch_assoc()) {?>       
-                      <tbody>
-                         <tr>
-                         <td><?php echo $rw['event_name']; ?></td>
-                         <form action='customers.php' method='POST'>
-                            <input type="hidden" name="eve_id"  value="<?php echo $rw['id'];?>">
-                            <td><button title='View Customers'  type='submit' name='view_cus'>View</button></td>
-                         </form>
-                         </tr>
-                         <?php }?>
-                      </tbody>
-                </table>
+        <!-- <h3>Choose Event Type </h3> -->
+        <?php 
+            $em = $_SESSION['US'];
+            $sql = "SELECT * FROM events WHERE event_owner='$em'";
+            $result = mysqli_query($connection, $sql);
+        
+            if ($result->num_rows > 0){
+
+            
+            while($row = $result->fetch_assoc()) {?>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Customers</th>
+              </tr>
+            </thead>
+              <tbody>
+                <tr>
+                <td><?php echo $row['event_name']; ?></td>
+                <form action="customers.php" method="POST">
+                <td><button title="View Customers"  name="view_cus" value="<?php echo $row['id']; ?>">View</button>
+                </td>
+                </tr>
+                </form>
+              </tbody>
+              </table>
+              </div>
+                    <?php }}else{
+                      echo "You havent created any events";
+                    } ?>
+      </div>
 
         <!-- <form method="POST" action="customers.php">
         <select name="eve_type" required>
@@ -114,19 +119,14 @@
             <option value="workshop">Workshop</option>
           </select>
           <button type="submit">Select</button>
-        </form> -->
-        </div>
-        
+        </form>
+        </div> -->
 
         <?php 
 
-        if (isset($_POST['view_cus'])){
+        if (isset($_POST['eve_type'])){
           $email = $_SESSION['US'];
-          $eve_id = $_POST['eve_id'];
-
-          
-
-
+          $eve_id = $_POST['view_cus'];
 
           //Check for events assigned to email
           $chk_eve = "SELECT * FROM events WHERE event_owner = '$email' AND id = '$eve_id'";
@@ -171,12 +171,10 @@
             }
             
         }
-          
-          
         }
         
         ?>
-        </div>
+
       
     </main>
   </div>
