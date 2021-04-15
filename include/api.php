@@ -15,11 +15,14 @@
 	if (isset($_POST['login-btn'])) {
 		login();
 	}
-	// call the create event function if create button is clicked
+	// call the create event function if create button is clicked 
 	if (isset($_POST['create_eve'])) {
 		create_eve();
 	}
-
+	// call the buy function if buy button is clicked 
+	if (isset($_POST['buy_btn'])) {
+		buy_eve();
+	}
 
 	
 	// call the upload function if upload button clicked
@@ -178,7 +181,7 @@
 					}
 					elseif ($ut == 'US'){
 						$_SESSION['US'] = $u_email;
-						header('location: index.php');
+						header('location: ../index.php');
 				}
 			}
                 else {
@@ -229,6 +232,31 @@
 			echo '<script>alert("Something went wrong")</script>';
 		}
 	}
+
+	//Buy event
+	function buy_eve(){
+		global $connection;
+
+		if (isset($_SESSION['US'])){
+			$email = $_SESSION['US'];
+			$eve_id = $_POST['eve_id'];
+
+			$sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
+
+			$res = mysqli_query($connection, $sql);
+
+			if ($res > 0){
+				echo '<script>alert("Thank you for your purchase")</script>';
+				echo "<script>window.location='../index.php'</script>";
+			}else {
+				echo '<script>alert("Purchase Failed")</script>';
+			}
+
+		}
+	}
+
+
+
      
     //Upload Articles and picture
 	function uploaddp(){

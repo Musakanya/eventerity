@@ -34,12 +34,12 @@
       padding: 20px;
       border-radius: 6px;
       background: #fff;
-      box-shadow: 0 0 20px 0 #A233FF; 
+      box-shadow: 0 0 20px 0 #f82249; 
       }
       .banner {
       position: relative;
       height: 210px;
-      background-image: url("../img/event.jpg");      background-size: cover;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -71,12 +71,12 @@
       padding: 5px;
       }
       .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder {
-      color: #A233FF;
+      color: #f82249;
       }
       .item input:hover, .item select:hover, .item textarea:hover {
       border: 1px solid transparent;
-      box-shadow: 0 0 6px 0 #A233FF;
-      color: #ccb0e6;
+      box-shadow: 0 0 6px 0 #f82249;
+      color: #f82249;
       }
       .item {
       position: relative;
@@ -130,8 +130,8 @@
       display: block;
       }
       input[type=radio]:checked + label.radio:before {
-      border: 2px solid #A233FF;
-      background: #A233FF;
+      border: 2px solid #f82249;
+      background: #f82249;
       }
       label.radio:after {
       content: "";
@@ -158,13 +158,13 @@
       padding: 10px;
       border: none;
       border-radius: 5px; 
-      background: #A233FF;
+      background: #f82249;
       font-size: 16px;
       color: #fff;
       cursor: pointer;
       }
       button:hover {
-      background: #A233FF;
+      background: #000;
       }
       @media (min-width: 568px) {
       .name-item, .city-item {
