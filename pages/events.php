@@ -57,7 +57,7 @@
           <li class="nav-item">
             <a class="nav-link " href="order_history.php">
               <span data-feather="home"></span>
-              Oder History
+              Order History
             </a>
           </li>
           <li class="nav-item">
