@@ -298,11 +298,11 @@
 			// $res2 = mysqli_query($connection, $qry) ;
 			
 
-			if ($res > 0){
+			if ($res){
 				$get_eve_name = "SELECT * FROM events WHERE id = $eve_id";
 				$ret = mysqli_query($connection, $get_eve_name);
 
-				if ($ret > 0){
+				if ($ret){
 					$conf = mysqli_fetch_array($ret);
 					$eve_name = $conf['event_name'];
 					$eve_price = $conf['price'];
@@ -310,11 +310,244 @@
 					$_SESSION['eve_name']  = $eve_name;
 					$_SESSION['eve_price']  = $eve_price;
 					$_SESSION['order_num']  = $ran;
-				
-				// echo '<script>alert("Thank you for your purchase")</script>';
-				echo "<script>window.location='order_confirmation.php'</script>";
+
+					//Sending Email
+					$par_type = $conf['participation_type'];
+					if ($par_type == "on_site"){
+						$ord_id = $ran;
+						$ord_date = date('Y/m/d');
+
+						// email starts
+                        
+						$contri =
+                        // coding for style and design for the email content the body of the email
+					   "<!DOCTYPE html>
+                  <html>
+                  <head>
+                      <style type='text/css'>
+                          body,
+                          table,
+                          td,
+                          a {
+                              -webkit-text-size-adjust: 100%;
+                              -ms-text-size-adjust: 100%;
+                          }
+                  
+                          table,
+                          td {
+                              mso-table-lspace: 0pt;
+                              mso-table-rspace: 0pt;
+                          }
+                  
+                          img {
+                              -ms-interpolation-mode: bicubic;
+                          }
+                  
+                          img {
+                              border: 0;
+                              height: auto;
+                              line-height: 100%;
+                              outline: none;
+                              text-decoration: none;
+                          }
+                  
+                          table {
+                              border-collapse: collapse !important;
+                          }
+                  
+                          body {
+                              height: 100% !important;
+                              margin: 0 !important;
+                              padding: 0 !important;
+                              width: 100% !important;
+                          }
+                  
+                          a[x-apple-data-detectors] {
+                              color: inherit !important;
+                              text-decoration: none !important;
+                              font-size: inherit !important;
+                              font-family: inherit !important;
+                              font-weight: inherit !important;
+                              line-height: inherit !important;
+                          }
+                  
+                          @media screen and (max-width: 480px) {
+                              .mobile-hide {
+                                  display: none !important;
+                              }
+                  
+                              .mobile-center {
+                                  text-align: center !important;
+                              }
+                          }
+                  
+                          div[style*='margin: 16px 0;'] {
+                              margin: 0 !important;
+                          }
+                      </style>
+                  
+                  <body style='margin: 0 !important; padding: 0 !important; background-color: #eeeeee;' bgcolor='#eeeeee'>
+                      <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                          <tr>
+                              <td align='center' style='background-color: #eeeeee;' bgcolor='#eeeeee'>
+                                  <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:600px;'>
+                                      <tr>
+                                          <td align='center' valign='top' style='font-size:0; padding: 35px;' bgcolor='#f82249'>
+                                              <div style='display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;'>
+                                                  <table align='left' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:300px;'>
+                                                      <tr>
+                                                          <td align='left' valign='top' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;' class='mobile-center'>
+                                                              <h1 style='font-size: 36px; font-weight: 800; margin: 0; color: #ffffff;'>Eventerity</h1>
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+                                              </div>
+                                              <div style='display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;' class='mobile-hide'>
+                                                  <table align='left' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:300px;'>
+                                                      <tr>
+                                                          <td align='right' valign='top' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;'>
+                                                              <table cellspacing='0' cellpadding='0' border='0' align='right'>
+                                                              </table>
+                                                          </td>
+                                                      </tr>
+                                                  </table>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td align='center' style='padding: 35px 35px 20px 35px; background-color: #ffffff;' bgcolor='#ffffff'>
+                                              <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:600px;'>
+                                                  <tr>
+                                                      <td align='center' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;'> <img src='../img/checked-checkbox.png' width='125' height='120' style='display: block; border: 0px;' /><br>
+                                                          <h2 style='font-size: 30px; font-weight: 800; line-height: 36px; color: #333333; margin: 0;'> Thank You For Your Order! </h2>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td align='center' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 10px;'>
+                                                          <p style='font-size: 16px; font-weight: 400; line-height: 24px; color: #777777;'> (Please keep a copy of this receipt for your records.)</p>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td align='left' style='padding-top: 20px;'>
+                                                          <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                                              <tr>
+                                                                  <td width='75%' align='left' bgcolor='#eeeeee' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;'> Order #</td>
+                                                                  <td width='25%' align='left' bgcolor='#eeeeee' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;'> $ord_id</td>
+                                                              </tr>
+                                                              <tr>
+                                                                  <td width='75%' align='left' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;'> Purchased Item ($eve_name) </td>
+                                                                  <td width='25%' align='left' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;'>ZMW$eve_price</td>
+                                                              </tr>
+                  
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td align='left' style='padding-top: 20px;'>
+                                                          <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                                              <tr>
+                                                                  <td width='75%' align='left' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;'> TOTAL </td>
+                                                                  <td width='25%' align='left' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px; border-top: 3px solid #eeeeee; border-bottom: 3px solid #eeeeee;'>ZMW$eve_price</td>
+                                                              </tr>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td align='center' height='100%' valign='top' width='100%' style='padding: 0 35px 35px 35px; background-color: #ffffff;' bgcolor='#ffffff'>
+                                              <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:660px;'>
+                                                  <tr>
+                                                      <td align='center' valign='top' style='font-size:0;'>
+                                                          <div style='display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;'>
+                                                              <table align='left' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:300px;'>
+                                                                  <tr>
+                                                                      <td align='left' valign='top' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;'>
+                                                                          <p style='font-weight: 800;'>Delivery Address</p>
+                                                                          <p>$email</p>
+                                                                      </td>
+                                                                  </tr>
+                                                              </table>
+                                                          </div>
+                                                          <div style='display:inline-block; max-width:50%; min-width:240px; vertical-align:top; width:100%;'>
+                                                              <table align='left' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:300px;'>
+                                                                  <tr>
+                                                                      <td align='left' valign='top' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;'>
+                                                                          <p style='font-weight: 800;'>Order Date</p>
+                                                                          <p>$ord_date</p>
+                                                                      </td>
+                                                                  </tr>
+                                                              </table>
+                                                          </div>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td align='center' style='padding: 35px; background-color: #ffffff;' bgcolor='#ffffff'>
+                                              <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width:600px;'>
+                                                  <tr>
+                                                      <td align='center'> <img src='../img/add2.svg' width='37' height='37' style='display: block; border: 0px;' /> </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td align='center' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; padding: 5px 0 10px 0;'>
+                                                          <p style='font-size: 14px; font-weight: 800; line-height: 18px; color: #333333;'> Eventerity<br> House No 3 Chilanga<br> LS, ZM 10101 </p>
+                                                      </td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td align='left' style='font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 24px;'>
+                                                          <p style='font-size: 14px; font-weight: 400; line-height: 20px; color: #777777;'> If you didn't create an account using this email address, please ignore this email</p>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                      </table>
+                  </body>
+                  
+                  </html>
+                  ";
+    
+                 //link to the phpmailerautoload file in the folder
+                 require 'phpmailer/PHPMailerAutoload.php';
+
+                 $mail = new PHPMailer;
+                 
+                 //$mail->SMTPDebug = 4;                            // Enables verbose debug output to check errors
+
+                 $mail->isSMTP();                                   // Sets mailer to use SMTP
+                 $mail->Host = 'smtp.gmail.com';                    // Main and backup SMTP servers
+                 $mail->SMTPAuth=true;                              // Enables SMTP authentication
+                 $mail->Username = 'eventeritysp@gmail.com';        // SMTP username - change this to the email of the sender
+                 $mail->Password = 'tS!Hci:YV65ZGTH';               // SMTP password - the password for the email of the sender
+                 $mail->SMTPSecure='tls';                           // Enables TLS encryption, `ssl` also accepted
+                 $mail->Port=587;               
+                        
+                 $mail->setFrom('eventeritysp@gmail.com', 'Order Receipt'); // what the email is called
+                 $mail->addAddress($email);                          // a recipient - the person receiving the email
+                 $mail->addReplyTo('eventeritysp@gmail.com');
+                 $mail->isHTML(true);                                // Email format is HTML
+                 $mail->Subject = "Eventerity Order Receipt";
+                 // this is the body variable that is style on top
+                 $mail->Body    = "$contri";   
+                       
+                  // if email is sent go to article page        
+                  if(!$mail->send()) {
+                     echo 'Message could not be sent.';
+                     echo 'Mailer Error: ' . $mail->ErrorInfo;
+                  } else {
+                      echo '<script>alert("Email sent")</script>';
+                     // echo '<script>alert("Thank you for your purchase")</script>';
+					 echo "<script>window.location='order_confirmation.php'</script>";
+				  }
+				  
+					}
 				}
-				
 			}else {
 				echo '<script>alert("Purchase Failed")</script>';
 			}
