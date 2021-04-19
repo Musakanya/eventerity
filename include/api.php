@@ -27,7 +27,10 @@
 	if (isset($_POST['buy_btn'])) {
 		buy_eve();
 	}
-
+	// call the  edit article function if edit button clicked
+	if (isset($_POST['edd_eve'])) {
+		ed_eve();
+	}
 	
 	// call the upload function if upload button clicked
 	if (isset($_POST['upload_btn'])) {
@@ -37,6 +40,7 @@
 	if (isset($_POST['ed_art'])) {
 		ed_art();
 	}
+	
 	// call the  delete article function if delete button clicked
 	if (isset($_POST['del_art'])) {
 		del_art();
@@ -284,10 +288,11 @@
 		if (isset($_SESSION['US'])){
 			$email = $_SESSION['US'];
 			$eve_id = $_POST['eve_id'];
+			$ran = (random_int(10000, 99999));
 
 
 			// $sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
-			$sql = "INSERT INTO order_history (event_id, order_date, user) VALUES('$eve_id', CURDATE(), '$email')";
+			$sql = "INSERT INTO order_history (order_id, event_id, order_date, user) VALUES('$ran', '$eve_id', CURDATE(), '$email')";
 
 			$res = mysqli_query($connection, $sql);
 			// $res2 = mysqli_query($connection, $qry) ;
@@ -299,11 +304,12 @@
 
 				if ($ret > 0){
 					$conf = mysqli_fetch_array($ret);
-				$eve_name = $conf['event_name'];
-				$eve_price = $conf['price'];
+					$eve_name = $conf['event_name'];
+					$eve_price = $conf['price'];
 
-				$_SESSION['eve_name']  = $eve_name;
-				$_SESSION['eve_price']  = $eve_price;
+					$_SESSION['eve_name']  = $eve_name;
+					$_SESSION['eve_price']  = $eve_price;
+					$_SESSION['order_num']  = $ran;
 				
 				// echo '<script>alert("Thank you for your purchase")</script>';
 				echo "<script>window.location='order_confirmation.php'</script>";
@@ -315,6 +321,42 @@
 
 		}
 	}
+	//Edit event
+	function ed_eve(){
+		global $connection;
+
+			// $email = $_SESSION['US'];
+			$eve_id = $_POST['edd_eve'];
+
+			$ename = mysqli_real_escape_string($connection, $_POST['ename']);
+			$eprice = mysqli_real_escape_string($connection, $_POST['eprice']);
+			$edate = mysqli_real_escape_string($connection, $_POST['edate']); 
+			$etime = mysqli_real_escape_string($connection, $_POST['etime']);
+			$etype = mysqli_real_escape_string($connection, $_POST['etype']);
+			$eve_desc = mysqli_real_escape_string($connection, $_POST['eve_desc']);
+			$saddress = mysqli_real_escape_string($connection, $_POST['saddress']);
+			$vcity = mysqli_real_escape_string($connection, $_POST['vcity']);
+			$pcode = mysqli_real_escape_string($connection, $_POST['pcode']);
+			$vcountry = mysqli_real_escape_string($connection, $_POST['vcountry']);
+			$vcapacity = mysqli_real_escape_string($connection, $_POST['vcapacity']);
+
+
+			$sql = "UPDATE events set event_name ='$ename', event_date ='$edate', 
+			event_time = '$etime', street_address = '$saddress', 
+			city = '$vcity' , post_code = '$pcode', country = '$vcountry', 
+			price = '$eprice', event_description = '$eve_desc', tickets_available = '$vcapacity', 
+			event_type = '$etype' WHERE id = '$eve_id'";
+			$ret = mysqli_query($connection,$sql);
+				//        die(print_r($sql));
+
+						if ($ret >  0){
+							echo "<script>alert('Update successful')</script>";
+							echo "<script>window.location='../pages/events.php'</script>";
+							
+						}else {
+							echo "<script>alert('Sorry something went wrong')</script>";
+						}
+					}
 
 
 
@@ -546,102 +588,26 @@
 	//Upload Edited Article
 	function ed_art(){
 		global $connection;
-		//Get inputs from user
-		$article_title = $_POST['article_title'];
-		$article_type = $_POST['article_type'];
-		$art_id = $_SESSION['art_id'];
-		$old_doc_name = $_SESSION['old_doc_name'];
-		$old_img_name = $_SESSION['old_img_name'];
+					
+					$first_name = mysqli_real_escape_string($connection, $_POST['first_name']);
+					$last_name = mysqli_real_escape_string($connection, $_POST['last_name']);
+					$phone_no = mysqli_real_escape_string($connection, $_POST['phone_no']);
+					$email = $_SESSION['STU'];
 
-		$doc_sou = '../upload/' . $old_doc_name; // Get old document file from folder
-		$img_sou = '../upload/' . $old_img_name; // Get old image file from folder
-		//Insert input into db
-		if (isset($_SESSION['art_id'])) {//Student insertion
-			 // Upload files
-			if (isset($_POST['ed_art'])) { // if save button on the form is clicked
-				// name of the uploaded files
-				$doc_name = $_FILES['upload_doc']['name'];
-				$img_name = $_FILES['upload_image']['name'];
+					$sql = "UPDATE students set first_name = '$first_name', last_name = '$last_name', phone_no = '$phone_no' WHERE email = '$email'";
+					$ret = mysqli_query($connection,$sql);
+				//        die(print_r($sql));
 
-				// destination of the file on the server
-				$destination = '../upload/' . $doc_name;
-				$img_destination = '../upload/' . $img_name;
-
-				// get the file extension
-				$extension = pathinfo($doc_name, PATHINFO_EXTENSION);
-				$img_extension = pathinfo($img_name, PATHINFO_EXTENSION);
-
-				//Check for the correct file extension
-				if (!in_array($extension, ['docx', 'doc'])) {
-					echo array_push($errors, "Sorry the document you've uploaded must be .docx/.doc");
-				}
-				if (!in_array($img_extension, ['png', 'jpeg', 'jpg'])) {
-					echo array_push($errors, "Sorry the image you've uploaded must be .png/.jpeg/.jpg");
-				}
-
-				// the physical file on a temporary upload directory on the server
-				$doc_file = $_FILES['upload_doc']['tmp_name'];
-				$img_file = $_FILES['upload_image']['tmp_name'];
-
-				// move the uploaded (temporary) file to the specified destination
-				if (move_uploaded_file($doc_file, $destination) and move_uploaded_file($img_file, $img_destination)) {
-					$sql = "UPDATE articles SET title='$article_title', art_type='$article_type', doc_name='$doc_name', img_name='$img_name' WHERE id='$art_id'";
-
-					if (mysqli_query($connection, $sql)) {
-                       echo '<script>alert("Article re-uploaded success")</script>';
-						echo "<script>window.location='../pages/article.php'</script>";
+						if ($ret >  0){
+							echo "<script>alert('Update successful')</script>";
+							echo "<script>window.location='../pages/sprofile.php'</script>";
+							
+						}else {
+							echo "<script>alert('Sorry something went wrong')</script>";
+						}
 					}
-				} else {
-					echo '<script>alert("Article uploaded failed")</script>';
-				}
-			}
-		}
-		
 
-		if(unlink($doc_sou) and unlink($img_sou)) //Delete files before uploading new ones
-		{
-			//Insert input into db
-		if (isset($_SESSION['art_id'])) {//Student insertion
-			// Upload files
-		   if (isset($_POST['ed_art'])) { // if save button on the form is clicked
-			   // name of the uploaded files
-			   $doc_name = $_FILES['upload_doc']['name'];
-			   $img_name = $_FILES['upload_image']['name'];
 
-			   // destination of the file on the server
-			   $destination = '../upload/' . $doc_name;
-			   $img_destination = '../upload/' . $img_name;
-
-			   // get the file extension
-			   $extension = pathinfo($doc_name, PATHINFO_EXTENSION);
-			   $img_extension = pathinfo($img_name, PATHINFO_EXTENSION);
-
-			   // the physical file on a temporary upload directory on the server
-			   $doc_file = $_FILES['upload_doc']['tmp_name'];
-			   $size = $_FILES['upload_doc']['size'];
-			   $img_file = $_FILES['upload_image']['tmp_name'];
-			   $img_size = $_FILES['upload_image']['size'];
-
-			   // move the uploaded (temporary) file to the specified destination
-			   if (move_uploaded_file($doc_file, $destination) and move_uploaded_file($img_file, $img_destination)) {
-				   
-				   $sql = "UPDATE articles SET title='$article_title', art_type='$article_type', doc_name='$doc_name', img_name='$img_name' WHERE id='$art_id'";
-
-				   if (mysqli_query($connection, $sql)) {
-						$_SESSION['ed_success']  = "EDIT SUCCESSFUL";
-					    echo "<script>window.location='../pages/article.php'</script>";
-				   }
-			   } else {
-				   echo '<script>alert("Deletion failed")</script>';
-			   }
-		   
-		}
-		}
-	  }
-	  else{
-		echo 'Something Went Wrong';
-	}
-	}
 
 	//Delete unapproved article from student
 	function del_art(){

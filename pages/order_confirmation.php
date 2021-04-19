@@ -4,6 +4,7 @@ include('../include/api.php');
     if (isset($_SESSION['eve_name']) and isset($_SESSION['eve_price'])){
         $eve_name = $_SESSION['eve_name'];
         $eve_price = $_SESSION['eve_price'];
+        $or_num = $_SESSION['order_num'];
     }
 
 ?> 
@@ -156,7 +157,7 @@ include('../include/api.php');
                                                     <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400;">
                                                         <!-- <p style="font-size: 18px; font-weight: 400; margin: 0; color: #ffffff;"><a href="#" target="_blank" style="color: #ffffff; text-decoration: none;">Shop &nbsp;</a></p> -->
                                                     </td>
-                                                    <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 24px;"> <a href="../index.php" target="_blank" style="color: #ffffff; text-decoration: none;"><img src="../img/close-white.svg" width="27" height="23" style="display: block; border: 0px;" /></a> </td>
+                                                    <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 24px;"> <a href="../index.php" style="color: #ffffff; text-decoration: none;"><img src="../img/close-white.svg" width="27" height="23" style="display: block; border: 0px;" /></a> </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -182,9 +183,9 @@ include('../include/api.php');
                                     <td align="left" style="padding-top: 20px;">
                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                             <tr>
-                                                <!-- <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> Order Confirmation # </td>
-                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> 2345678(order_history_id) </td>
-                                            </tr> -->
+                                                <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> Order #</td>
+                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"><?php echo $or_num; ?></td>
+                                            </tr>
                                             <tr>
                                                 <td width="75%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;"> Purchased Item (<?php echo $eve_name; ?>) </td>
                                                 <td width="25%" align="left" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 15px 10px 5px 10px;"> ZMW <?php echo $eve_price; ?></td>

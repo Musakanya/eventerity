@@ -114,7 +114,7 @@
                             <?php echo $row['event_time']; ?>
                           </td>
                             <td><?php echo $row['tickets_available']; ?></td>
-                            <form action="events.php" method="POST">
+                            <form action="edit_event.php" method="POST">
                             <td><button title="Edit Event"  name="ed_eve" value="<?php echo $row['id']; ?>">Edit</button>
                             <br><br>
                             <button title="Delete Event" name="del_eve" value="<?php echo $row['id']; ?>" onclick="return checkDel()">Del</button>

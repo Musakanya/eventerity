@@ -156,7 +156,7 @@
             $ret = mysqli_query($connection, $chk);
 
             while ($rw = mysqli_fetch_array($ret)){
-              $ord_num = $rw['id'];
+              $ord_num = $rw['order_id'];
               $ord_date = $rw['order_date'];
               $eve_id = $rw['event_id'];
               $usr_mail = $rw['user'];

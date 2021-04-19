@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Event Form</title>
+  <title>Edit Event</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -99,115 +99,185 @@
 
   <main id="main">
     <!--==========================
-      Create Event
+      Edit Event
     ============================-->
-    <section id="create-event" class="section-with-bg wow fadeInUp">
-      <div class="container">
-      <div class="section-header">
-          <h2>Event creation form</h2>
-          <p>You can create an event using the form below</p>
-        </div>
-      <div class="testbox">
-      <form action="create_event.php" method="POST">
-        <div class="item">
-          <p>Event Name</p>
-          <input type="text" name="ename" maxlength="25" required/>
-        </div>
-        <div class="item">
-          <p>Participation Type</p>
-          <select name="ptype" required>
-          <!-- <option value="" disabled selected>On-site</option> -->
-            <option value="on_site">On-site</option>
-            <!-- <option value="online">Online</option>
-            <option value="on_site">On-site</option> -->
-          </select>
-        </div>
-        <div class="item">
-          <p>Price</p>
-          <input type="number" name="eprice" placeholder="ZMW" required/>
-        </div>
-        <div class="item">
-          <p>Date of Event</p>
-          <input type="text" name="edate" class="input--style-3 js-datepicker form-control" required/>
-          <i class="fas fa-calendar-alt"></i>
-        </div>
-        <!-- <div class="input-group">
-        <input class="input--style-3 js-datepicker form-control" type="text" placeholder="Event Date" name="eve_date" required />
-        <i class="fas fa-calendar-alt"></i>
-        </div> -->
-        <!-- <div class="item">
-          <p>Date of Event</p>
-          <input type="date" name="edate" required/>
-          <i class="fas fa-calendar-alt"></i>
-        </div> -->
-        <div class="item">
-          <p>Time of Event</p>
-          <input type="time" name="etime" required/>
-          <!-- <i class="fas fa-clock"></i> -->
-        </div>
-        <div class="item">
-          <p>Event Type</p>
-          <select name="etype" required>
-            <option value="" disabled selected></option>
-            <option value="conference">Conferencee</option>
-            <option value="festival">Festival</option>
-            <option value="seminar">Seminar</option>
-            <option value="speaker_session">Speaker Session</option>
-            <option value="workshop">Workshop</option>
-          </select>
-        </div>
-        <div class="item">
-          <p>Description of Event</p>
-          <textarea rows="3" maxlength="150" name="eve_desc" required></textarea>
-        </div>
-        <!-- <div class="item">
-          <p>Venue Name</p>
-          <input type="text" name="vname" required/>
-        </div> -->
-        <div class="item">
-          <p>Venue Address</p>
-          <input type="text" name="saddress" placeholder="Street address" required/>
-          <!-- <input type="text" name="name" placeholder="Street address line 2" /> -->
-          <div class="city-item">
-            <input type="text" name="vcity" placeholder="City" required/>
-            <!-- <input type="text" name="name" placeholder="Region" /> -->
-            <input type="text" name="pcode" placeholder="Postal / Zip code" required/>
-            <select name="vcountry" required>
-              <option value="">Country</option>
-              <!-- <option value="kenya">Kenya</option>
-              <option value="namibia">Namibia</option>
-              <option value="south_africa">South Africa</option> -->
-              <option value="zambia">Zambia</option>
+    <?php
+
+    $eve_id = $_POST['ed_eve'];
+
+    $chk_eve = "SELECT * FROM events WHERE id = '$eve_id'";
+    $ret_chk = mysqli_query($connection, $chk_eve);
+
+    $fnd_val = mysqli_fetch_array($ret_chk);
+    $eve_name = $fnd_val['event_name'];
+    $eve_date = $fnd_val['event_date'];
+    $eve_time = $fnd_val['event_time'];
+    $eve_add = $fnd_val['street_address'];
+    $eve_city = $fnd_val['city'];
+    $eve_post = $fnd_val['post_code'];
+    $eve_country = $fnd_val['country'];
+    $eve_price = $fnd_val['price'];
+    $eve_desc = $fnd_val['event_description'];
+    $eve_url = $fnd_val['event_url'];
+    $eve_tickets = $fnd_val['tickets_available'];
+    $eve_type = $fnd_val['event_type'];
+    $eve_ptype = $fnd_val['participation_type'];
+
+    if ($eve_ptype == "on_site"){
+        echo "<section id='create-event' class='section-with-bg wow fadeInUp'>
+        <div class='container'>
+        <div class='section-header'>
+            <h2>Event edit form</h2>
+            <p>You can edit the event using the form below</p>
+            <br><br>
+            <p>You can't edit the participation type. You'll need to recreate an event for that.</p>
+          </div>
+        <div class='testbox'>
+        <form action='create_event.php' method='POST'>
+          <div class='item'>
+            <p>Event Name</p>
+            <input type='text' name='ename' maxlength='25' value='$eve_name' required/>
+          </div>
+          <div class='item'>
+            <p>Participation Type</p>
+            <input type='text' name='ptype' maxlength='25' value='$eve_ptype' disabled selected/>
+          </div>
+          <div class='item'>
+            <p>Price</p>
+            <input type='number' name='eprice' placeholder='ZMW' value='$eve_price' required/>
+          </div>
+          <div class='item'>
+            <p>Date of Event</p>
+            <input type='text' name='edate' class='input--style-3 js-datepicker form-control' value='$eve_date' required/>
+            <i class='fas fa-calendar-alt'></i>
+          </div>
+          <div class='item'>
+            <p>Time of Event</p>
+            <input type='time' name='etime' value='$eve_time' required/>
+            <!-- <i class='fas fa-clock'></i> -->
+          </div>
+          <div class='item'>
+            <p>Event Type</p>
+            <select name='etype' required>
+              <option value='' disabled selected>$eve_type</option>
+              <option value='conference'>Conferencee</option>
+              <option value='festival'>Festival</option>
+              <option value='seminar'>Seminar</option>
+              <option value='speaker_session'>Speaker Session</option>
+              <option value='workshop'>Workshop</option>
             </select>
           </div>
-        </div>
-        <div class="item">
-          <p>Capacity</p>
-          <input type="number" name="vcapacity" required/>
-        </div>
-        <!-- <div class="item">
-          <p>Contact Person</p>
-          <div class="name-item">
-            <input type="text" name="cont_fname" placeholder="Firstname" required/>
-            <input type="text" name="cont_lname" placeholder="Lastname" required/>
+          <div class='item'>
+            <p>Description of Event</p>
+            <textarea rows='3' maxlength='150' name='eve_desc' placeholder='$eve_desc' value='$eve_desc' required></textarea>
           </div>
-        </div>
-        <div class="item">
-          <p>Contact Email</p>
-          <input type="text" name="cemail" required/>
-        </div>
-        <div class="item">
-          <p>Contact Number</p>
-          <input type="text" name="cnum" required/>
-        </div> -->
-        <div class="btn-block">
-          <button type="submit" name="create_eve">CREATE</button>
-        </div>
-      </form>
-    </div>
-
+          <div class='item'>
+            <p>Venue Address</p>
+            <input type='text' name='saddress' placeholder='Street address' value='$eve_add' required/>
+            <div class='city-item'>
+              <input type='text' name='vcity' placeholder='City' value='$eve_city' required/>
+              <input type='text' name='pcode' placeholder='Postal / Zip code' value='$eve_post' required/>
+              <select name='vcountry' required>
+                <option value=''>$eve_country</option>
+                <option value='zambia'>Zambia</option>
+              </select>
+            </div>
+          </div>
+          <div class='item'>
+            <p>Capacity</p>
+            <input type='number' name='vcapacity' value='$eve_tickets' required/>
+          </div>
+          <div class='btn-block'>
+            <button type='submit' name='edd_eve' value='$eve_id'>EDIT</button>
+          </div>
+        </form>
       </div>
-    </section>
+  
+        </div>
+      </section>";
+    } elseif ($eve_ptype == "online"){
+        echo "<section id='create-event' class='section-with-bg wow fadeInUp'>
+        <div class='container'>
+        <div class='section-header'>
+            <h2>Event edit form</h2>
+            <p>You can edit the event using the form below</p>
+            <br><br>
+            <p>You can't edit the participation type. You'll need to recreate an event for that.</p>
+          </div>
+        <div class='testbox'>
+        <form action='create_event.php' method='POST'>
+          <div class='item'>
+            <p>Event Name</p>
+            <input type='text' name='ename' maxlength='25' value='$eve_name' required/>
+          </div>
+          <div class='item'>
+            <p>Participation Type</p>
+            <input type='text' name='ptype' maxlength='25' value='$eve_ptype' disabled selected/>
+          </div>
+          <div class='item'>
+            <p>Price</p>
+            <input type='number' name='eprice' placeholder='ZMW' value='$eve_price' required/>
+          </div>
+          <div class='item'>
+            <p>Date of Event</p>
+            <input type='text' name='edate' class='input--style-3 js-datepicker form-control' value='$eve_date' required/>
+            <i class='fas fa-calendar-alt'></i>
+          </div>
+          <div class='item'>
+            <p>Time of Event</p>
+            <input type='time' name='etime' value='$eve_time' required/>
+            <!-- <i class='fas fa-clock'></i> -->
+          </div>
+          <div class='item'>
+            <p>Event Type</p>
+            <select name='etype' required>
+              <option value='' disabled selected>$eve_type</option>
+              <option value='conference'>Conferencee</option>
+              <option value='festival'>Festival</option>
+              <option value='seminar'>Seminar</option>
+              <option value='speaker_session'>Speaker Session</option>
+              <option value='workshop'>Workshop</option>
+            </select>
+          </div>
+          <div class='item'>
+            <p>Description of Event</p>
+            <textarea rows='3' maxlength='150' name='eve_desc' placeholder='$eve_desc' value='$eve_desc' required></textarea>
+          </div>
+          <div class='item'>
+          <p>Event URL</p>
+          <textarea rows='3' maxlength='150' name='eve_url' value='$eve_url' placeholder='$eve_url' required></textarea>
+        </div>
+          <div class='item'>
+            <p>Venue Address</p>
+            <input type='text' name='saddress' placeholder='Street address' value='$eve_add' required/>
+            <div class='city-item'>
+              <input type='text' name='vcity' placeholder='City' value='$eve_city' required/>
+              <input type='text' name='pcode' placeholder='Postal / Zip code' value='$eve_post' required/>
+              <select name='vcountry' required>
+                <option value=''>$eve_country</option>
+                <option value='zambia'>Zambia</option>
+              </select>
+            </div>
+          </div>
+          <div class='item'>
+            <p>Capacity</p>
+            <input type='number' name='vcapacity' value='$eve_tickets' required/>
+          </div>
+          <div class='btn-block'>
+            <button type='submit' name='edd_eve_onl' value='$eve_id'>EDIT</button>
+          </div>
+        </form>
+      </div>
+  
+        </div>
+      </section>";
+    }
+
+    ?>
+
+
+
+    
   </main>
 
    

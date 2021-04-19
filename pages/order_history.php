@@ -95,48 +95,12 @@
 
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <!-- <h3>Choose Event </h3> -->
-        <?php 
-
-        if (isset($_SESSION['US'])){
-          $email = $_SESSION['US'];
-          //Check for events assigned to email
-          $chk_eve = "SELECT * FROM order_history WHERE user = '$email'";
-          $re = mysqli_query($connection, $chk_eve);
-
-          if ($re->num_rows > 0){
-              $res = mysqli_fetch_array($re);
-
-              $ord_num = $res['id'];
-              $eid = $res['event_id'];
-              $odate = $res['order_date'];
-
-              $chk = "SELECT * FROM events WHERE id = '$eid'";
-              $ret = mysqli_query($connection, $chk);
-
-            while ($row = mysqli_fetch_array($ret)){
-                $eve_name = $row['event_name'];
-                $eve_price = $row['price'];
-                $eve_date = $row['event_date'];
-                $eve_time = $row['event_time'];
-                $eve_address = $row['street_address'];
-                $eve_city = $row['city'];
-                $eve_post = $row['post_code'];
-                $eve_country = $row['country'];
-                $eve_type = $row['event_type'];
-                $eve_ptype = $row['participation_type'];
-                $eve_own = $row['event_owner'];
-                $eve_url = $row['event_url'];
-
-                if ($eve_url == NULL){
-                  echo "
-            <div class='table-responsive'>
-              <table class='table table-striped table-sm'>
-                <thead>
-                  <tr>
-                    <th>Order Number</th>
+        <table class="table table-striped table-bordered table-hover">
+                     <thead>
+                     <th>Order Number</th>
                     <th>Order Date</th>
                     <th>Event Name</th>
-                    <th>Price</th>
+                    <th>Price (ZMW)</th>
                     <th>Event Date</th>
                     <th>Event Time</th>
                     <th>Address</th>
@@ -145,81 +109,35 @@
                     <th>Country</th>
                     <th>Type</th>
                     <th>Participation Type</th>
-                    <th>Event Owner</th>
+                      </thead>
+                         <?php 
+                         $email = $_SESSION['US'];
+                         //Check for events assigned to email
+                         $chk_eve = "SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = '$email'";
+                         $re = mysqli_query($connection, $chk_eve);             
+                        // $em = $_SESSION['US'];
+                        // $sql = "SELECT * FROM events WHERE event_owner='$em'";
+                        // $result = mysqli_query($connection, $sql);
+                         while($row = $re->fetch_assoc()) {?>       
+                      <tbody>
+                      <tr>
+                      <td><?php echo $row['order_id']; ?></td>
+                      <td><?php echo $row['order_date']; ?></td>
+                      <td><?php echo $row['event_name']; ?></td>
+                      <td><?php echo $row['price']; ?></td>
+                      <td><?php echo $row['event_date']; ?></td>
+                      <td><?php echo $row['event_time']; ?></td>
+                      <td><?php echo $row['street_address']; ?></td>
+                      <td><?php echo $row['city']; ?></td>
+                      <td><?php echo $row['post_code']; ?></td>
+                      <td><?php echo $row['country']; ?></td>
+                      <td><?php echo $row['event_type']; ?></td>
+                      <td><?php echo $row['participation_type']; ?></td>
+                    </tr>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>$ord_num</td>
-                    <td>$odate</td>
-                    <td>$eve_name</td>
-                    <td>K$eve_price</td>
-                    <td>$eve_date</td>
-                    <td>$eve_time</td>
-                    <td>$eve_address</td>
-                    <td>$eve_city</td>
-                    <td>$eve_post</td>
-                    <td>$eve_country</td>
-                    <td>$eve_type</td>
-                    <td>$eve_ptype</td>
-                    <td>$eve_own</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>";
-                }else{
-                  echo "
-            <div class='table-responsive'>
-              <table class='table table-striped table-sm'>
-                <thead>
-                  <tr>
-                    <th>Order Number</th>
-                    <th>Order Date</th>
-                    <th>Event Name</th>
-                    <th>Event Url</th>
-                    <th>Price</th>
-                    <th>Event Date</th>
-                    <th>Event Time</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Post Code</th>
-                    <th>Country</th>
-                    <th>Type</th>
-                    <th>Participation Type</th>
-                    <th>Event Owner</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>$ord_num</td>
-                    <td>$odate</td>
-                    <td>$eve_name</td>
-                    <td>$eve_url</td>
-                    <td>K$eve_price</td>
-                    <td>$eve_date</td>
-                    <td>$eve_time</td>
-                    <td>$eve_address</td>
-                    <td>$eve_city</td>
-                    <td>$eve_post</td>
-                    <td>$eve_country</td>
-                    <td>$eve_type</td>
-                    <td>$eve_ptype</td>
-                    <td>$eve_own</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>";
-                }
-            }
-            
-        }else{
-            echo "You haven't bought anything yet";
-        }
-          
-          
-        }
-        
-        ?>
+                         <?php }?>
+                      </tbody>
+                </table>
       </div>
 
         
