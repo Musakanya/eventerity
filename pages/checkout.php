@@ -61,62 +61,77 @@
           </li>
       </div>
       <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Payment</h4>
-        <form class="needs-validation" action="checkout.php" method="POST" novalidate>
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" required>
-              <label class="form-check-label" for="credit">Credit card</label>
+      <?php 
+      if ($eve_pri == 0){
+        echo "<h4 class='mb-3'>Payment</h4>
+        <form class='needs-validation' action='checkout.php' method='POST' novalidate>
+          <hr class='my-4'>
+          <input type='hidden' name='eve_id'  value='$eve_id'>
+          <button class='w-100 btn btn-primary btn-lg' type='submit' name='buy_btn'>BUY</button>
+        </form>
+      </div>";
+
+      }else{
+        echo"<h4 class='mb-3'>Payment</h4>
+        <form class='needs-validation' action='checkout.php' method='POST' novalidate>
+          <div class='my-3'>
+            <div class='form-check'>
+              <input id='credit' name='paymentMethod' type='radio' class='form-check-input' required>
+              <label class='form-check-label' for='credit'>Credit card</label>
             </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" >
-              <label class="form-check-label" for="debit">Debit card</label>
+            <div class='form-check'>
+              <input id='debit' name='paymentMethod' type='radio' class='form-check-input' >
+              <label class='form-check-label' for='debit'>Debit card</label>
             </div>
-            <div class="invalid-feedback">
+            <div class='invalid-feedback'>
                Please choose a payment type
               </div>
           </div>
 
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
+          <div class='row gy-3'>
+            <div class='col-md-6'>
+              <label for='cc-name' class='form-label'>Name on card</label>
+              <input type='text' class='form-control' id='cc-name' placeholder='' required>
+              <small class='text-muted'>Full name as displayed on card</small>
+              <div class='invalid-feedback'>
                 Name on card is required
               </div>
             </div>
 
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Credit card number</label>
-              <input type="number" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
+            <div class='col-md-6'>
+              <label for='cc-number' class='form-label'>Credit card number</label>
+              <input type='number' class='form-control' id='cc-number' placeholder='' required>
+              <div class='invalid-feedback'>
                 Credit card number is required
               </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
+            <div class='col-md-3'>
+              <label for='cc-expiration' class='form-label'>Expiration</label>
+              <input type='text' class='form-control' id='cc-expiration' placeholder='' required>
+              <div class='invalid-feedback'>
                 Expiration date required
               </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="number" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
+            <div class='col-md-3'>
+              <label for='cc-cvv' class='form-label'>CVV</label>
+              <input type='number' class='form-control' id='cc-cvv' placeholder='' required>
+              <div class='invalid-feedback'>
                 Security code required
               </div>
             </div>
           </div>
 
-          <hr class="my-4">
-          <input type='hidden' name='eve_id'  value='<?php echo "$eve_id";?>'>
-          <button class="w-100 btn btn-primary btn-lg" type="submit" name="buy_btn">BUY</button>
+          <hr class='my-4'>
+          <input type='hidden' name='eve_id'  value='$eve_id'>
+          <button class='w-100 btn btn-primary btn-lg' type='submit' name='buy_btn'>BUY</button>
         </form>
-      </div>
+      </div>";
+      }
+      
+      ?>
+        
     </div>
   </main>
 

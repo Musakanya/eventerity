@@ -11,7 +11,6 @@
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
@@ -59,6 +58,7 @@
                 echo " <li class='dropdown'><a href='#'><span>Events</span> <i class='bi bi-chevron-down'></i></a>
                 <ul>
                   <li><a href='pages/create_event.php'>Create Event</a></li>
+                  <li><a href='pages/create_online_event.php'>Create Event(Online)</a></li>
                   <li><a href='pages/events.php'>Events</a></li>
                   <li><a href='pages/customers.php'>Customers</a></li>
                 </ul>

@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2021 at 03:54 PM
+-- Generation Time: Apr 16, 2021 at 06:58 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -198,7 +198,9 @@ ALTER TABLE `event_type`
 -- Indexes for table `order_history`
 --
 ALTER TABLE `order_history`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `user` (`user`);
 
 --
 -- Indexes for table `participation_type`
@@ -260,6 +262,13 @@ ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`event_owner`) REFERENCES `user` (`email`),
   ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`event_type`) REFERENCES `event_type` (`event_type`),
   ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`participation_type`) REFERENCES `participation_type` (`participation_type`);
+
+--
+-- Constraints for table `order_history`
+--
+ALTER TABLE `order_history`
+  ADD CONSTRAINT `order_history_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  ADD CONSTRAINT `order_history_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`email`);
 
 --
 -- Constraints for table `user`

@@ -15,9 +15,13 @@
 	if (isset($_POST['login-btn'])) {
 		login();
 	}
-	// call the create event function if create button is clicked 
+	// call the create event function if create button is clicked    
 	if (isset($_POST['create_eve'])) {
 		create_eve();
+	}
+	// call the create event function if create button is clicked    
+	if (isset($_POST['create_onl_eve'])) {
+		create_onl_eve();
 	}
 	// call the buy function if buy button is clicked 
 	if (isset($_POST['buy_btn'])) {
@@ -232,6 +236,46 @@
 			echo '<script>alert("Something went wrong")</script>';
 		}
 	}
+	function create_onl_eve(){
+		global $connection;
+		if (isset($_SESSION['US'])){
+			$email = $_SESSION['US'];
+
+			$ename = mysqli_real_escape_string($connection, $_POST['ename']);
+			$ptype = mysqli_real_escape_string($connection, $_POST['ptype']);
+			$eprice = mysqli_real_escape_string($connection, $_POST['eprice']);
+			$edate = mysqli_real_escape_string($connection, $_POST['edate']); 
+			$etime = mysqli_real_escape_string($connection, $_POST['etime']);
+			$etype = mysqli_real_escape_string($connection, $_POST['etype']);
+			$eve_desc = mysqli_real_escape_string($connection, $_POST['eve_desc']);
+			$eve_url = mysqli_real_escape_string($connection, $_POST['eve_url']);
+			$saddress = mysqli_real_escape_string($connection, $_POST['saddress']);
+			$vcity = mysqli_real_escape_string($connection, $_POST['vcity']);
+			$pcode = mysqli_real_escape_string($connection, $_POST['pcode']);
+			$vcountry = mysqli_real_escape_string($connection, $_POST['vcountry']);
+			$vcapacity = mysqli_real_escape_string($connection, $_POST['vcapacity']);
+			
+			$cret_eve = "INSERT INTO events (event_name, event_date, 
+			event_time, street_address, city, post_code, country, price, event_description, event_url, 
+			tickets_available, event_owner, event_type, participation_type)
+			VALUES ('$ename', '$edate', '$etime', '$saddress', '$vcity', '$pcode', '$vcountry', 
+			'$eprice', '$eve_desc', '$eve_url', '$vcapacity', '$email', '$etype', '$ptype')";
+
+			$res = mysqli_query($connection, $cret_eve);
+
+			// die(print_r($cret_eve));
+
+
+			if ($res > 0){
+				echo '<script>alert("Event Created")</script>';
+			}else{
+				echo '<script>alert("Creation Failed")</script>';
+			}
+
+		}else{
+			echo '<script>alert("Something went wrong")</script>';
+		}
+	}
 
 	//Buy event
 	function buy_eve(){
@@ -242,17 +286,29 @@
 			$eve_id = $_POST['eve_id'];
 
 
-			$sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
-			$qry = "INSERT INTO order_history (event_id, order_date, user) VALUES('$eve_id', CURDATE(), '$email')";
+			// $sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
+			$sql = "INSERT INTO order_history (event_id, order_date, user) VALUES('$eve_id', CURDATE(), '$email')";
 
 			$res = mysqli_query($connection, $sql);
-			$res2 = mysqli_query($connection, $qry) ;
+			// $res2 = mysqli_query($connection, $qry) ;
 			
 
-			if ($res > 0 and $res2 > 0){
+			if ($res > 0){
+				$get_eve_name = "SELECT * FROM events WHERE id = $eve_id";
+				$ret = mysqli_query($connection, $get_eve_name);
+
+				if ($ret > 0){
+					$conf = mysqli_fetch_array($ret);
+				$eve_name = $conf['event_name'];
+				$eve_price = $conf['price'];
+
+				$_SESSION['eve_name']  = $eve_name;
+				$_SESSION['eve_price']  = $eve_price;
 				
-				echo '<script>alert("Thank you for your purchase")</script>';
-				echo "<script>window.location='../index.php'</script>";
+				// echo '<script>alert("Thank you for your purchase")</script>';
+				echo "<script>window.location='order_confirmation.php'</script>";
+				}
+				
 			}else {
 				echo '<script>alert("Purchase Failed")</script>';
 			}

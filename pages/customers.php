@@ -152,12 +152,14 @@
           
 
             //Check for user on specific event
-            $chk = "SELECT * FROM user_on_event WHERE event_id = '$id'";
+            $chk = "SELECT * FROM order_history WHERE event_id = '$id'";
             $ret = mysqli_query($connection, $chk);
 
             while ($rw = mysqli_fetch_array($ret)){
+              $ord_num = $rw['id'];
+              $ord_date = $rw['order_date'];
               $eve_id = $rw['event_id'];
-              $usr_mail = $rw['email'];
+              $usr_mail = $rw['user'];
 
               $sql = "SELECT * FROM events WHERE id = '$eve_id'";
               $result = mysqli_query($connection, $sql);
@@ -170,12 +172,16 @@
               <table class='table table-striped table-sm'>
                 <thead>
                   <tr>
-                    <th>Customer Email</th>
+                  <th>Order ID</th>
+                  <th>Order Date</th>
+                  <th>Customer Email</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>$usr_mail</td>
+                  <td>$ord_num</td>
+                  <td>$ord_date</td>
+                  <td>$usr_mail</td>
                   </tr>
                 </tbody>
               </table>

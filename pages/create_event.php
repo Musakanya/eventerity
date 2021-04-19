@@ -62,7 +62,12 @@
           <li><a href="#about">About</a></li>
           <?php 
               if (isset($_SESSION['US'])){
-                echo " <li  class='menu-active'><a href='create_event.php'>Create Event</a></li>";
+                echo " <li class='dropdown'><a href='#'><span>Create Event</span> <i class='bi bi-chevron-down'></i></a>
+                <ul>
+                <li><a href='pages/create_event.php'>Create Event</a></li>
+                <li ><a href='pages/create_online_event.php'>Create Event(Online)</a></li>
+                </ul>
+              </li>";
                 echo " <li class='dropdown'><a href='#'><span>Profile</span> <i class='bi bi-chevron-down'></i></a>
                 <ul>
                   <li><a href='dashboard.php'>Dashboard</a></li>
@@ -111,9 +116,9 @@
         <div class="item">
           <p>Participation Type</p>
           <select name="ptype" required>
-            <option value="" disabled selected></option>
-            <option value="online">Online</option>
             <option value="on_site">On-site</option>
+            <!-- <option value="online">Online</option>
+            <option value="on_site">On-site</option> -->
           </select>
         </div>
         <div class="item">
@@ -168,9 +173,9 @@
             <input type="text" name="pcode" placeholder="Postal / Zip code" required/>
             <select name="vcountry" required>
               <option value="">Country</option>
-              <option value="kenya">Kenya</option>
+              <!-- <option value="kenya">Kenya</option>
               <option value="namibia">Namibia</option>
-              <option value="south_africa">South Africa</option>
+              <option value="south_africa">South Africa</option> -->
               <option value="zambia">Zambia</option>
             </select>
           </div>
@@ -202,6 +207,7 @@
 
       </div>
     </section>
+  </main>
 
    
 

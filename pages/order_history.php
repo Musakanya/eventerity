@@ -124,9 +124,11 @@
                 $eve_country = $row['country'];
                 $eve_type = $row['event_type'];
                 $eve_ptype = $row['participation_type'];
+                $eve_own = $row['event_owner'];
+                $eve_url = $row['event_url'];
 
-
-              echo "
+                if ($eve_url == NULL){
+                  echo "
             <div class='table-responsive'>
               <table class='table table-striped table-sm'>
                 <thead>
@@ -143,6 +145,7 @@
                     <th>Country</th>
                     <th>Type</th>
                     <th>Participation Type</th>
+                    <th>Event Owner</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,11 +162,54 @@
                     <td>$eve_country</td>
                     <td>$eve_type</td>
                     <td>$eve_ptype</td>
+                    <td>$eve_own</td>
                   </tr>
                 </tbody>
               </table>
             </div>";
-              
+                }else{
+                  echo "
+            <div class='table-responsive'>
+              <table class='table table-striped table-sm'>
+                <thead>
+                  <tr>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Event Name</th>
+                    <th>Event Url</th>
+                    <th>Price</th>
+                    <th>Event Date</th>
+                    <th>Event Time</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Post Code</th>
+                    <th>Country</th>
+                    <th>Type</th>
+                    <th>Participation Type</th>
+                    <th>Event Owner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>$ord_num</td>
+                    <td>$odate</td>
+                    <td>$eve_name</td>
+                    <td>$eve_url</td>
+                    <td>K$eve_price</td>
+                    <td>$eve_date</td>
+                    <td>$eve_time</td>
+                    <td>$eve_address</td>
+                    <td>$eve_city</td>
+                    <td>$eve_post</td>
+                    <td>$eve_country</td>
+                    <td>$eve_type</td>
+                    <td>$eve_ptype</td>
+                    <td>$eve_own</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>";
+                }
             }
             
         }else{
