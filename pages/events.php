@@ -25,8 +25,11 @@
     
 
     <!-- Bootstrap core CSS -->
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/profile.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
+    <!-- font awesome -->
+    <link href="../font-awesome/css/all.css" rel="stylesheet">
+    <script defer src="../font-awesome/js/all.js"></script>
   </head>
   <body>
     
@@ -115,9 +118,9 @@
                           </td>
                             <td><?php echo $row['tickets_available']; ?></td>
                             <form action="edit_event.php" method="POST">
-                            <td><button title="Edit Event"  name="ed_eve" value="<?php echo $row['id']; ?>">Edit</button>
+                            <td><button title="Edit Event"  name="ed_eve" class="btn2 btn-edit" value="<?php echo $row['id']; ?>"><i class="fas fa-edit"></i></button>
                             <br><br>
-                            <button title="Delete Event" name="del_eve" value="<?php echo $row['id']; ?>" onclick="return checkDel()">Del</button>
+                            <button title="Delete Event" name="del_eve" class="btn2 btn-del" value="<?php echo $row['id']; ?>" onclick="return checkDel()"><i class="fas fa-trash-alt"></i></button>
                             </td>
                             </tr>
                             </form>

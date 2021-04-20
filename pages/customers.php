@@ -20,6 +20,8 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
+    <!-- Favicons -->
+  <link href="../img/favicon.png" rel="icon">
     <title>Customers</title>
 
     

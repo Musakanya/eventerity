@@ -5,6 +5,8 @@ include('../include/api.php');
         $eve_name = $_SESSION['eve_name'];
         $eve_price = $_SESSION['eve_price'];
         $or_num = $_SESSION['order_num'];
+        $eve_url = $_SESSION['eve_url'];
+
     }
 
 ?> 
@@ -225,6 +227,10 @@ include('../include/api.php');
                                                     <td align="left" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px;">
                                                         <p style="font-weight: 800;">Delivery Address</p>
                                                         <p><?php echo $_SESSION['US']; ?></p>
+                                                        
+                                                        <?php if(isset($_SESSION['eve_url'])){
+                                                            echo "<p style='font-weight: 800;'>Event Link</p>
+                                                            <p>$eve_url</p>";}?>
                                                     </td>
                                                 </tr>
                                             </table>

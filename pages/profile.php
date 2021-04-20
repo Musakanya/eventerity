@@ -8,6 +8,9 @@
 
         while($rw = mysqli_fetch_array($res)){
           $fn = $rw['first_name'];
+          $ln = $rw['last_name'];
+          $em = $rw['email'];
+          $pn = $rw['phone_no'];
         }
       }
 
@@ -20,6 +23,8 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
+    <!-- Favicons -->
+  <link href="../img/favicon.png" rel="icon">
     <title>Profile</title>
 
     
@@ -38,7 +43,7 @@
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      <a class="nav-link" href="logout.php">Log out</a>
     </li>
   </ul>
 </header>
@@ -89,11 +94,49 @@
     </nav>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <!-- Change Profile Info -->
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2" >Profile</h1>
-      </div>
-
-            
+        <form class="form-signin" action="profile.php" method="POST" autocomplete="off">
+                <?php include('../include/errors.php'); ?>
+                  <div class="text-center mb-4">
+                  <h1 class="h2" >Profile</h1>
+                  <p>You can change your profile information below. Though you cannot change your email.</p>
+                  </div>
+                  <div class="form-floating">
+                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" value="<?php echo $em ?>" disabled>
+                <label for="floatingInput">Email address</label>
+                  </div>
+            <div class="form-floating">
+                <input type="text" name="first_name" class="form-control" id="floatingFname" placeholder="Firstname" value="<?php echo $fn ?>" required>
+                <label for="floatingFname">Firstname</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" name="last_name" class="form-control" id="floatingLname" placeholder="Lastname" value="<?php echo $ln ?>" required>
+                <label for="floatingLname">Lastname</label>
+              </div>
+              <div class="form-floating">
+                <input type="tel" name="phone_no" class="form-control" id="floatingPnum" placeholder="Phone no" value="<?php echo $pn ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                <label for="floatingPnum">Phone (123-456-7890)</label>
+              </div>
+              <p></p>
+              <button class="w-100 btn btn-lg btn-update" type="submit" name="update-btn">UPDATE</button>
+              </form>
+            </div>
+            <!-- Change Password -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+            <form class="form-signin" action="profile.php" method="POST" autocomplete="off">
+                <?php include('../include/errors.php'); ?>
+                  <div class="text-center mb-4">
+                  <h1 class="h2" >Password</h1>
+                  <p>You can change your password below. You will be signed out after.</p>
+                  </div>
+              <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password"  minlength="5" required>
+                <label for="floatingPassword">Password</label>
+              <p></p>
+              <button class="w-100 btn btn-lg btn-update" type="submit" name="chg-pass-btn">CHANGE PASSWORD</button>
+              </form>
+            </div>
 
     </main>
   </div>
