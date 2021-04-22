@@ -150,7 +150,7 @@ include('../include/api.php');
                                     </tr>
                                 </table>
                             </div>
-                            <div style="display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;" class="mobile-hide">
+                            <div style="display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;">
                                 <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
                                     <tr>
                                         <td align="right" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;">

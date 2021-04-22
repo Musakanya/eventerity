@@ -83,3 +83,15 @@
     box-shadow: 0 0 20px rgba(0,0,0,.2);
 }
 /*single-package-item */
+
+/* Form Success And Error Message Formatting */
+.error { 
+    width: 92%;  
+    margin: 0px auto;  
+    padding: 10px;  
+    border: 1px solid #a94442;  
+    color: #a94442;  
+    background: #f2dede;  
+    border-radius: 5px;  
+    text-align: left; 
+} 

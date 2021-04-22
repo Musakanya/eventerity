@@ -15,7 +15,14 @@
   <body>
   
     <form class="form-signin" action="login.php" method="POST" autocomplete="off">
-      <?php include('../include/errors.php'); ?>
+      <?php include('../include/errors.php'); 
+
+      if (isset($_SESSION['success'])){
+        echo $_SESSION['success'];
+      }
+      
+      ?>
+      <p></p>
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
         </div>

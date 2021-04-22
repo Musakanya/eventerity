@@ -87,7 +87,7 @@
   <section id="intro">
     <div class="intro-container wow fadeIn">
       <h1 class="mb-4 pb-0">Welcome to<br><span>Eventerity</span> Website</h1>
-      <p class="mb-4 pb-0">We are a website that allows users to purchase and create events</p>
+      <p class="mb-4 pb-0">We are a website that anyone to purchase and create events</p>
       <a href="#about" class="about-btn scrollto">About Eventerity</a>
     </div>
   </section>
@@ -101,18 +101,16 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <h2>About The Event</h2>
-            <p>Sed nam ut dolor qui repellendus iusto odit. Possimus inventore eveniet accusamus error amet eius aut
-              accusantium et. Non odit consequatur repudiandae sequi ea odio molestiae. Enim possimus sunt inventore in
-              est ut optio sequi unde.</p>
+            <h2>About Eventerity</h2>
+            <p>Developed By Musakanya Kapoma in his BSc (Hons) in computing degree. Eventerity is a site that allows anyone to create and buy events.</p>
           </div>
           <div class="col-lg-3">
             <h3>Where</h3>
-            <p>Downtown Conference Center, New York</p>
+            <p>Chilanga Mount makulu House No 3, Lusaka</p>
           </div>
           <div class="col-lg-3">
-            <h3>When</h3>
-            <p>Monday to Wednesday<br>10-12 December</p>
+            <h3>Open</h3>
+            <p>Monday to Fri<br>9AM-5PM</p>
           </div>
         </div>
       </div>

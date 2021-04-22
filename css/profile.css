@@ -149,3 +149,7 @@ body {
 .btn-update{
 	background-color: #ccb0e6;
 }
+.item {
+  position: relative;
+  margin: 10px 0;
+  }

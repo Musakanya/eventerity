@@ -39,7 +39,7 @@
     <div class="py-5 text-center">
 
       <h2>Checkout form</h2>
-      <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      <p class="lead">Enter your payment details  below if needed.</p>
     </div>
 
     <div class="row g-5">
@@ -67,7 +67,7 @@
         <form class='needs-validation' action='checkout.php' method='POST' novalidate>
           <hr class='my-4'>
           <input type='hidden' name='eve_id'  value='$eve_id'>
-          <button class='w-100 btn btn-primary btn-lg' type='submit' name='buy_btn'>BUY</button>
+          <button class='w-100 btn btn-checkout btn-lg' type='submit' name='buy_btn'>CHECKOUT</button>
         </form>
       </div>";
 
@@ -125,7 +125,7 @@
 
           <hr class='my-4'>
           <input type='hidden' name='eve_id'  value='$eve_id'>
-          <button class='w-100 btn btn-primary btn-lg' type='submit' name='buy_btn'>BUY</button>
+          <button class='w-100 btn btn-checkout btn-lg' type='submit' name='buy_btn'>CHECKOUT</button>
         </form>
       </div>";
       }

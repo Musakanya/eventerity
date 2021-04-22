@@ -70,7 +70,7 @@
               </li>";
                 echo " <li class='dropdown'><a href='#'><span>Profile</span> <i class='bi bi-chevron-down'></i></a>
                 <ul>
-                  <li><a href='dashboard.php'>Dashboard</a></li>
+                <li><a href='profile.php'>Profile</a></li>
                   <li><a href='logout.php'>Logout</a></li>
                 </ul>
               </li>";
@@ -111,7 +111,7 @@
       <form action="create_event.php" method="POST">
         <div class="item">
           <p>Event Name</p>
-          <input type="text" name="ename" maxlength="25" required/>
+          <input type="text" name="ename" maxlength="30" required/>
         </div>
         <div class="item">
           <p>Participation Type</p>
