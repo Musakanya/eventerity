@@ -207,9 +207,9 @@
 			
 			$cret_eve = "INSERT INTO events (event_name, event_date, 
 			event_time, street_address, city, post_code, country, price, event_description, 
-			tickets_available, event_owner, event_type, participation_type)
+			tickets_available, event_owner, event_type, participation_type, bought)
 			VALUES ('$ename', '$edate', '$etime', '$saddress', '$vcity', '$pcode', '$vcountry', 
-			'$eprice', '$eve_desc', '$vcapacity', '$email', '$etype', '$ptype')";
+			'$eprice', '$eve_desc', '$vcapacity', '$email', '$etype', '$ptype', 0)";
 
 			$res = mysqli_query($connection, $cret_eve);
 
@@ -276,15 +276,29 @@
 			$eve_id = $_POST['eve_id'];
 			$ran = (random_int(10000, 99999));
 
+			// Check for avilable tickets
+			$qry = mysqli_query($connection, "SELECT tickets_available FROM events WHERE id = '$eve_id'") ;
+			$get_tic = mysqli_fetch_array($qry);
 
-			// $sql = "INSERT INTO user_on_event (email, event_id) VALUES('$email', '$eve_id')";
-			$sql = "INSERT INTO order_history (order_id, event_id, order_date, user) VALUES('$ran', '$eve_id', CURDATE(), '$email')";
+			$av_tickets = $get_tic['tickets_available']; //Get Number of tickets left
 
-			$res = mysqli_query($connection, $sql);
+			// $count_bought = +1;
+			// // $count = 0;
+			// $less_tickets = $av_tickets - 1;
+
+			if ($av_tickets == 0){
+				$_SESSION['sold_out'];
+			}else{
+				// $qry2 = mysqli_query($connection, "UPDATE events SET tickets_available = tickets_available-1, bought = '$count_bought' WHERE id '$eve_id'");
+				$sql2 = mysqli_query($connection, "UPDATE events SET tickets_available = tickets_available-1, bought = bought +1 WHERE id = '$eve_id'") ;
+
+				$sql = mysqli_query($connection, "INSERT INTO order_history (order_id, event_id, order_date, user) VALUES('$ran', '$eve_id', CURDATE(), '$email')") ;
+
+				// $res = mysqli_query($connection, $sql);
 			// $res2 = mysqli_query($connection, $qry) ;
 			
 
-			if ($res){
+			if ($sql2 and $sql){
 				$get_eve_name = "SELECT * FROM events WHERE id = $eve_id";
 				$ret = mysqli_query($connection, $get_eve_name);
 
@@ -772,6 +786,9 @@
 			}
 
 		}
+			}
+
+			
 	}
 	//Edit event
 	function ed_eve(){

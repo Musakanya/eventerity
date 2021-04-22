@@ -95,6 +95,7 @@
             if (isset($_POST['eve_type'])){
                 $eve_type = $_POST['eve_type'];
                 $email = $_SESSION['US'];
+                
 
                 $sql = "SELECT * FROM events WHERE event_type = '$eve_type'";
                 $ret = mysqli_query($connection, $sql);
@@ -117,7 +118,13 @@
                   $eve_own = $row['event_owner'];
                   $eve_id = $row['id'];
 
-                  echo "<div class='col-lg-4'>
+                  $cur_date = date("Y-m-d");//Assign current date to variable
+
+                  //Check if the event has been sold out
+                  if ($eve_atickets > 0){
+                    if ($eve_date >= $cur_date)//Check for events greater than or equal to current date
+                  {
+                    echo "<div class='col-lg-4'>
                   <div class='card mb-5 mb-lg-0'>
                     <div class='card-body'>
                       <h5 class='card-title text-muted text-uppercase text-center'>$eve_name</h5>
@@ -147,10 +154,51 @@
                     </div>
                   </div>
                 </div>";
+                  }else{
+                    echo "<div class='section-header'>
+                          <h2>Sorry ther are not events of this type yet</h2></div>";
+                }
+                  }else {
+                    if ($eve_date >= $cur_date)//Check for events greater than or equal to current date
+                  {
+                    echo "<div class='col-lg-4'>
+                  <div class='card mb-5 mb-lg-0'>
+                    <div class='card-body'>
+                      <h5 class='card-title text-muted text-uppercase text-center'>$eve_name <img src='../img/sold2.svg' width='30' height='30' alt='SOLD OUT' title='SOLD OUT'></h5>
+                      <br><h5 class='card-title text-muted text-uppercase text-center'>BY $eve_own</h5>
+                      <br>
+                      <h6 class='card-price text-center'>K$eve_price</h6>
+                      <hr>
+                      <ul class='fa-ul'>
+                        <li><span class='fa-li'></span>Description: $eve_desc</li>
+                        <li><span class='fa-li'></span>Type: $eve_type</li>
+                        <li><span class='fa-li'></span>Paticipation Type: $eve_ptype</li>
+                        <li><span class='fa-li'></span>Available Tickets: SOLD OUT</li>
+                        <li><span class='fa-li'></span>Date: $eve_date</li>
+                        <li><span class='fa-li'></span>Time: $eve_time</li>
+                        <li><span class='fa-li'></span>Address: $eve_address</li>
+                        <li><span class='fa-li'></span>City: $eve_city</li>
+                        <li><span class='fa-li'></span>Post Code: $eve_post</li>
+                        <li><span class='fa-li'></span>Country: $eve_country</li>
+                      </ul>
+                      <hr>
+                      <div class='text-center'>
+                      <form action='checkout.php' method='POST'>
+                          <input type='hidden' name='eve_id'  value='$eve_id'>
+                          <button style='background-color:grey' class='btn' disabled>Buy Now</button>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>";
+                  }else{
+                    echo "<div class='section-header'>
+                          <h2>Sorry ther are not events of this type yet</h2></div>";
+                }
+                  }
+                  
+                  
               }
-             }else{
-               echo "<div class='section-header'>
-               <h2>Sorry ther are not events of this type yet</h2></div>";
              }
             }
           }
