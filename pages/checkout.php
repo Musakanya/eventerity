@@ -1,4 +1,12 @@
-<?php include('../include/api.php');?> 
+<?php include('../include/api.php');
+
+        if (!isset($_SESSION['US'])){
+          header('location:login.php');
+        }
+        if (!isset($_POST['eve_id'])){
+          header('location:../index.php');
+        }
+?> 
 <!doctype html>
 <html lang="en">
   <head>

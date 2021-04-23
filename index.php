@@ -55,20 +55,13 @@
           <li><a href="#about">About</a></li>
           <?php 
               if (isset($_SESSION['US'])){
-                echo " <li class='dropdown'><a href='#'><span>Events</span> <i class='bi bi-chevron-down'></i></a>
-                <ul>
+                echo "
                   <li><a href='pages/create_event.php'>Create Event</a></li>
                   <li><a href='pages/create_online_event.php'>Create Event(Online)</a></li>
                   <li><a href='pages/events.php'>Events</a></li>
                   <li><a href='pages/customers.php'>Customers</a></li>
-                </ul>
-              </li>";
-                echo " <li class='dropdown'><a href='#'><span>Profile</span> <i class='bi bi-chevron-down'></i></a>
-                <ul>
                   <li><a href='pages/profile.php'>Profile</a></li>
-                  <li><a href='pages/logout.php'>Logout</a></li>
-                </ul>
-              </li>";
+                  <li><a href='pages/logout.php'>Logout</a></li>";
               }else{
                 echo "<li><a href='pages/login.php'>Login</a></li>
                 <li><a href='pages/signup.php'>Sign Up</a></li>";
@@ -290,8 +283,8 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <img src="img/logo.png" alt="TheEvenet">
-            <p>In alias aperiam. Placeat tempore facere. Officiis voluptate ipsam vel eveniet est dolor et totam porro. Perspiciatis ad omnis fugit molestiae recusandae possimus. Aut consectetur id quis. In inventore consequatur ad voluptate cupiditate debitis accusamus repellat cumque.</p>
+            <img src="img/logo.png" alt="Eventerity">
+            <p>Eventerity is a customer first website. It allows anyone including you to create and buy events by other people.</p>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
@@ -300,7 +293,7 @@
               <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
-              <li><i class="fa fa-angle-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Site Map</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="pages/privacy_policy.html">Privacy policy</a></li>
             </ul>
           </div>

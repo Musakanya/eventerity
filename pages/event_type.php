@@ -1,4 +1,16 @@
-<?php include('../include/api.php');?> 
+<?php include('../include/api.php');
+
+        if (!isset($_SESSION['US'])){
+          header('location:login.php');
+        }
+        if (!isset($_POST['buy_now'])){
+          header('location:login.php');
+        }
+
+
+
+
+?> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,22 +66,14 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="../index.php">Home</a></li>
+        <li><a href="../index.php">Home</a></li>
           <li><a href="#about">About</a></li>
-          <?php 
-              if (isset($_SESSION['US'])){
-                echo " <li><a href='create_event.php'>Create Event</a></li>";
-                echo " <li class='dropdown'><a href='#'><span>Profile</span> <i class='bi bi-chevron-down'></i></a>
-                <ul>
-                  <li><a href='dashboard.php'>Dashboard</a></li>
-                  <li><a href='logout.php'>Logout</a></li>
-                </ul>
-              </li>";
-              }else{
-                echo "<li><a href='login.php'>Login</a></li>
-                <li><a href='signup.php'>Sign Up</a></li>";
-              }
-          ?>
+          <li ><a href='create_event.php'>Create Event</a></li>
+          <li><a href='create_online_event.php'>Create Event(Online)</a></li>
+          <li><a href='events.php'>Events</a></li>
+          <li><a href='customers.php'>Customers</a></li>
+          <li><a href='profile.php'>Profile</a></li>
+          <li><a href='logout.php'>Logout</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -191,15 +195,17 @@
                     </div>
                   </div>
                 </div>";
-                  }else{
+                  } else{
+                    echo "<div class='section-header'>
+                    <h2>Sorry ther are not events of this type yet</h2></div>";
+                  }
+                  }
+
+              }
+             }else{
                     echo "<div class='section-header'>
                           <h2>Sorry ther are not events of this type yet</h2></div>";
                 }
-                  }
-                  
-                  
-              }
-             }
             }
           }
     }?>

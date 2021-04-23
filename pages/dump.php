@@ -496,7 +496,7 @@
 if (isset($_SESSION['US'])){
   $email = $_SESSION['US'];
   //Check for events assigned to email
-  $chk_eve = "SELECT * FROM order_history WHERE user = '$email'";
+  $chk_eve = 'SELECT * FROM order_history WHERE user = '$email'';
   $re = mysqli_query($connection, $chk_eve);
 
   if ($re->num_rows > 0){
@@ -506,7 +506,7 @@ if (isset($_SESSION['US'])){
       $eid = $res['event_id'];
       $odate = $res['order_date'];
 
-      $chk = "SELECT * FROM events WHERE id = '$eid'";
+      $chk = 'SELECT * FROM events WHERE id = '$eid'';
       $ret = mysqli_query($connection, $chk);
 
     while ($row = mysqli_fetch_array($ret)){
@@ -522,7 +522,7 @@ if (isset($_SESSION['US'])){
         $eve_ptype = $row['participation_type'];
 
 
-      echo "
+      echo '
     <div class='table-responsive'>
       <table class='table table-striped table-sm'>
         <thead>
@@ -558,12 +558,12 @@ if (isset($_SESSION['US'])){
           </tr>
         </tbody>
       </table>
-    </div>";
+    </div>';
       
     }
     
 }else{
-    echo "You haven't bought anything yet";
+    echo 'You haven't bought anything yet';
 }
   
   
@@ -572,7 +572,7 @@ if (isset($_SESSION['US'])){
 if (isset($_SESSION['US'])){
   $email = $_SESSION['US'];
   //Check for events assigned to email
-  $chk_eve = "SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = '$email'";
+  $chk_eve = 'SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = '$email'';
   $re = mysqli_query($connection, $chk_eve);
 
   if ($re->num_rows > 0){
@@ -591,7 +591,7 @@ if (isset($_SESSION['US'])){
         $eve_ptype = $row['participation_type'];
 
 
-      echo "
+      echo '
     <div class='table-responsive'>
       <table class='table table-striped table-sm'>
         <thead>
@@ -627,19 +627,19 @@ if (isset($_SESSION['US'])){
           </tr>
         </tbody>
       </table>
-    </div>";
+    </div>';
       
     }
     
 }else{
-    echo "You haven't bought anything yet";
+    echo 'You haven't bought anything yet';
 }
   
   
 }
-$sql = "SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = 'sumi@gmail.com'";
+$sql = 'SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = 'sumi@gmail.com'';
 ?>
- <table class="table table-striped table-bordered table-hover">
+ <table class='table table-striped table-bordered table-hover'>
                      <thead>
                      <th>Order Number</th>
                     <th>Order Date</th>
@@ -657,10 +657,10 @@ $sql = "SELECT * FROM order_history, events WHERE order_history.event_id = event
                          <?php 
                          $email = $_SESSION['US'];
                          //Check for events assigned to email
-                         $chk_eve = "SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = '$email'";
+                         $chk_eve = 'SELECT * FROM order_history, events WHERE order_history.event_id = events.id AND order_history.user = '$email'';
                          $re = mysqli_query($connection, $chk_eve);             
                         // $em = $_SESSION['US'];
-                        // $sql = "SELECT * FROM events WHERE event_owner='$em'";
+                        // $sql = 'SELECT * FROM events WHERE event_owner='$em'';
                         // $result = mysqli_query($connection, $sql);
                          while($row = $re->fetch_assoc()) {?>       
                       <tbody>
@@ -676,7 +676,25 @@ $sql = "SELECT * FROM order_history, events WHERE order_history.event_id = event
                 </table>
 
 
+                <a class='nav-link dropdown-toggle' href='#' id='navbarDarkDropdownMenuLink' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            Dropdown
+          </a>
 
+          <li><a class='dropdown-item' href='#'>Action</a></li>
+            <li><a class='dropdown-item' href='#'>Another action</a></li>
+            <li><a class='dropdown-item' href='#'>Something else here</a></li>
+
+
+            <li class='nav-item dropdown'>
+          <a class='nav-link dropdown-toggle' href='#' id='navbarDarkDropdownMenuLink' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            Dropdown
+          </a>
+          <ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='navbarDarkDropdownMenuLink'>
+            <li><a class='dropdown-item' href='#'>Action</a></li>
+            <li><a class='dropdown-item' href='#'>Another action</a></li>
+            <li><a class='dropdown-item' href='#'>Something else here</a></li>
+          </ul>
+        </li>
 
 </html>
 

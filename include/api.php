@@ -319,6 +319,10 @@
 					//Sending Email
 					$par_type = $conf['participation_type'];
 					if ($par_type == "on_site"){
+						$_SESSION['confirm'];
+					 	echo "<script>window.location='order_confirmation.php'</script>";
+
+
 						// email starts
                         
 						$contri =
@@ -542,13 +546,11 @@
                   if(!$mail->send()) {
                      echo 'Message could not be sent.';
                      echo 'Mailer Error: ' . $mail->ErrorInfo;
-                  } else {
-                    //   echo '<script>alert("Email sent")</script>';
-                     // echo '<script>alert("Thank you for your purchase")</script>';
-					 echo "<script>window.location='order_confirmation.php'</script>";
-				  }
+                  }
 				  
 					}elseif ($par_type == "online"){
+						$_SESSION['confirm'];
+					 echo "<script>window.location='order_confirmation.php'</script>";
 						// email starts
                         
 						$contri =
@@ -773,12 +775,13 @@
                   // if email is sent go to article page        
                   if(!$mail->send()) {
                      echo 'Message could not be sent.';
-                     echo 'Mailer Error: ' . $mail->ErrorInfo;
-                  } else {
-                    //   echo '<script>alert("Email sent")</script>';
-                     // echo '<script>alert("Thank you for your purchase")</script>';
-					 echo "<script>window.location='order_confirmation.php'</script>";
-				  }
+                     echo 'Mailer Error: ' . $mail->ErrorInfo;} 
+				// 	 else {
+                //     //   echo '<script>alert("Email sent")</script>';
+                //      // echo '<script>alert("Thank you for your purchase")</script>';
+				// 	 $_SESSION['confirm'];
+				// 	 echo "<script>window.location='order_confirmation.php'</script>";
+				//   }
 					}
 				}
 			}else {

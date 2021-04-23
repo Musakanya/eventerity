@@ -58,28 +58,14 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="../index.php">Home</a></li>
+        <li><a href="../index.php">Home</a></li>
           <li><a href="#about">About</a></li>
-          <?php 
-              if (isset($_SESSION['US'])){
-                echo "<li class='dropdown'><a href='#'><span>Create Event</span> <i class='bi bi-chevron-down'></i></a>
-                <ul>
-                <li><a href='pages/create_event.php'>Create Event</a></li>
-                <li ><a href='pages/create_online_event.php'>Create Event(Online)</a></li>
-                </ul>
-              </li>";
-                echo " <li class='dropdown'><a href='#'><span>Profile</span> <i class='bi bi-chevron-down'></i></a>
-                <ul>
-                  <li><a href='dashboard.php'>Dashboard</a></li>
-                  <li><a href='logout.php'>Logout</a></li>
-                </ul>
-              </li>";
-              }else{
-                echo "<li><a href='login.php'>Login</a></li>
-                <li><a href='signup.php'>Sign Up</a></li>";
-              }
-          ?>
-        </ul>
+          <li ><a href='create_event.php'>Create Event</a></li>
+          <li class="menu-active"><a href='create_online_event.php'>Create Event(Online)</a></li>
+          <li><a href='events.php'>Events</a></li>
+          <li><a href='customers.php'>Customers</a></li>
+          <li><a href='profile.php'>Profile</a></li>
+          <li><a href='logout.php'>Logout</a></li>
       </nav><!-- #nav-menu-container -->
     </div>
   </header><!-- #header -->
@@ -221,8 +207,8 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <img src="../img/logo.png" alt="TheEvenet">
-            <p>In alias aperiam. Placeat tempore facere. Officiis voluptate ipsam vel eveniet est dolor et totam porro. Perspiciatis ad omnis fugit molestiae recusandae possimus. Aut consectetur id quis. In inventore consequatur ad voluptate cupiditate debitis accusamus repellat cumque.</p>
+            <img src="../img/logo.png" alt="Eventerity">
+            <p>Eventerity is a customer first website. It allows anyone including you to create and buy events by other people.</p>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
@@ -231,18 +217,18 @@
               <li><i class="fa fa-angle-right"></i> <a href="#">Home</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">About us</a></li>
               <li><i class="fa fa-angle-right"></i> <a href="#">Services</a></li>
-              <li><i class="fa fa-angle-right"></i> <a href="#">Terms & Conditions</a></li>
-              <li><i class="fa fa-angle-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Site Map</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="privacy_policy.html">Privacy policy</a></li>
             </ul>
           </div>
           <div class="col-lg-3 col-md-6 footer-contact">
             <h4>Contact Us</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              House No 3 Chilanga <br>
+              Lusaka, Lusaka 10101<br>
+              Zambia <br>
+              <strong>Phone:</strong> +260 965 8571 31<br>
+              <strong>Email:</strong> musakanyakapoma@gmail.com<br>
             </p>
 
             <div class="social-links">
@@ -261,16 +247,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>TheEvent</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
-        -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong>Eventerity</strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- #footer -->

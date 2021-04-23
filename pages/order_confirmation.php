@@ -8,6 +8,12 @@ include('../include/api.php');
         $eve_url = $_SESSION['eve_url'];
 
     }
+    if (!isset($_SESSION['US'])){
+        header('location:login.php');
+      }
+      if (!isset($_SESSION['eve_name'])){
+        header('location:../index.php');
+      }
 
 ?> 
 <!DOCTYPE html>
