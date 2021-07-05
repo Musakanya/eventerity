@@ -14,5 +14,3 @@ used in your system
 
 Admin	Email: admin@eventerity.com 
 Password: even1@terity
-User/Customer	Email: musakanyakapoma@gmail.com
-Password: 12345
